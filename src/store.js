@@ -17,7 +17,7 @@ const store = createStore({
             state.currentAPICall = payload
         },
         storeNextPokemon(state, payload) {
-            state.pokemons.concat(payload)
+            state.pokemons = [...state.pokemons, ...payload]
         },
         storePokemonDetails(state, payload) {
             state.selectedPokemon = payload
@@ -29,7 +29,6 @@ const store = createStore({
                 const res = await fetch('https://pokeapi.co/api/v2/pokemon/')
                 const pokemon = await res.json() 
 
-                console.log(pokemon)
                 commit('storeCurrentAPICall', pokemon)
                 commit('storePokemon', pokemon.results)
             }
@@ -40,7 +39,6 @@ const store = createStore({
             const res = await fetch(state.currentAPICall.next)
             const nextPokemon = await res.json()
 
-            console.log('next', nextPokemon)
             commit('storeCurrentAPICall', nextPokemon)
             commit('storeNextPokemon', nextPokemon.results)
         },

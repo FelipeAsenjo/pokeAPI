@@ -15,7 +15,7 @@ export default {
     name: 'PokemonList',
     data() {
         return {
-
+            
         }
     },
     props: {
@@ -25,12 +25,6 @@ export default {
     methods: {
         showPokemon(id) {
             this.$store.dispatch('fetchPokeDetails', id)
-        }
-    },
-    computed: {
-        async renderPokemons() {
-            console.log(this.pokemons)
-            // fetch
         }
     },
     updated() {
