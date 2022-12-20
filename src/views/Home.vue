@@ -1,13 +1,17 @@
 <template>
-  <section class="h-1/3 flex flex-col items-center">
-    <Header />
+  <section class="relative flex flex-col items-center min-h-screen">
+    <Header @click="$store.dispatch('resetSelectedPokemon')" />
     <Searchbar />
     <PokemonList 
       :imgUrl="imgUrl" 
       :pokemons="pokemons"
       @scroll="nextPage"
     />
-
+    <Modal 
+      v-if="selectedPokemon" 
+      :imgUrl="imgUrl"
+    />
+    <!-- <Modal v-if="true" /> -->
   </section>
 </template>
 
@@ -17,13 +21,15 @@ import { mapState } from 'vuex'
 import Header from '../components/Header.vue'
 import Searchbar from '../components/Searchbar.vue'
 import PokemonList from '../components/PokemonList.vue'
+import Modal from '../components/Modal.vue'
 
 export default {
   name: 'Home',
   components: {
     Header,
     Searchbar,
-    PokemonList
+    PokemonList,
+    Modal
   },
   data() {
     return {
@@ -38,7 +44,7 @@ export default {
   computed: {
     ...mapState({
       pokemons: state => state.pokemons,
-      selectedPokemon: state => state.selectedPokemon
+      selectedPokemon: state => state.selectedPokemon,
     })    
   },
   mounted() {

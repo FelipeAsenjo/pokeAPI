@@ -4,7 +4,7 @@ const store = createStore({
     state: {
         pokemons: [],
         currentAPICall: {},
-        selectedPokemon: {}
+        selectedPokemon: ''
     },
     getters: {
 
@@ -21,6 +21,9 @@ const store = createStore({
         },
         storePokemonDetails(state, payload) {
             state.selectedPokemon = payload
+        },
+        resetSelectedPokemon(state) {
+            state.selectedPokemon = ''
         }
     },
     actions: {
@@ -48,6 +51,9 @@ const store = createStore({
 
             console.log(pokemonDetails)
             commit('storePokemonDetails', pokemonDetails)
+        },
+        resetSelectedPokemon({ commit }) {
+            commit('resetSelectedPokemon')
         }
     }
 })
