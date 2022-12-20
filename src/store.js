@@ -43,11 +43,11 @@ const store = createStore({
             commit('storeNextPokemon', nextPokemon.results)
         },
         async fetchPokeDetails({ commit, state }, payload) {
-            const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${payload}`)
+            const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${payload.toLowerCase()}`)
             const pokemonDetails = await res.json() 
 
             console.log(pokemonDetails)
-            commit('storePokemonDetails', pokemonDetails.results)
+            commit('storePokemonDetails', pokemonDetails)
         }
     }
 })

@@ -1,12 +1,13 @@
 <template>
   <section class="h-1/3 flex flex-col items-center">
-    <Header @click="nextPage" />
+    <Header />
     <Searchbar />
     <PokemonList 
       :imgUrl="imgUrl" 
       :pokemons="pokemons"
       @scroll="nextPage"
     />
+
   </section>
 </template>
 
@@ -27,7 +28,6 @@ export default {
   data() {
     return {
       imgUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/",
-      selectedPokemon: ''
     }
   },
   methods: {
@@ -38,6 +38,7 @@ export default {
   computed: {
     ...mapState({
       pokemons: state => state.pokemons,
+      selectedPokemon: state => state.selectedPokemon
     })    
   },
   mounted() {
@@ -45,7 +46,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>
