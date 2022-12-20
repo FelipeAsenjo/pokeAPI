@@ -5,6 +5,7 @@
     <PokemonList 
       :imgUrl="imgUrl" 
       :pokemons="pokemons"
+      @scroll="nextPage"
     />
   </section>
 </template>
@@ -36,7 +37,7 @@ export default {
   },
   computed: {
     ...mapState({
-      pokemons: state => state.pokemons
+      pokemons: state => state.pokemons,
     })    
   },
   mounted() {

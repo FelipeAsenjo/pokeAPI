@@ -7,17 +7,24 @@
                 <img :src="`${imgUrl}${pokemon.id}.png`" class="w-24 mx-auto" />
                 {{ pokemon.name[0].toUpperCase() + pokemon.name.substring(1) }}
         </div>
+        <div 
+            id="trigger" 
+            ref="triggerOnScroll" 
+            class="text-center self-center"
+        >
+            <vue-loaders-ball-beat 
+                v-if="nextUrl"
+                color="currentColor" scale="1" 
+            />
+        </div>
     </section>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
     name: 'PokemonList',
-    data() {
-        return {
-            
-        }
-    },
     props: {
         imgUrl: String,
         pokemons: Object
@@ -25,7 +32,26 @@ export default {
     methods: {
         showPokemon(id) {
             this.$store.dispatch('fetchPokeDetails', id)
+        },
+        initObserver() {
+            const observer = new IntersectionObserver( entries => {
+                entries.forEach(entry => {
+                    if(entry.intersectionRatio > 0) {
+                        this.$emit('scroll')
+                    }
+                })
+            })
+
+            observer.observe(this.$refs.triggerOnScroll)
         }
+    },
+    computed: {
+        ...mapState({
+            nextUrl: state => state.currentAPICall.next
+        })
+    },
+    mounted() {
+        this.initObserver()
     },
     updated() {
         this.pokemons.forEach(pokemon => {
